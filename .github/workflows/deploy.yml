@@ -1,0 +1,26 @@
+name: Deploy Solvify Website
+
+on:
+  push:
+    branches:
+      - main  # triggers on push to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy files to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host:81.17.102.70
+          username: olivier
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/abizerwa.rw
+            git pull origin main
+            chown -R www-data:www-data .
+            chmod -R 755 .
