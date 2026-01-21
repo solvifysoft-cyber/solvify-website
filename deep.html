@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLVIFY - Digital Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Variables */
+        :root {
+            --green: #10b981;
+            --dark-green: #059669;
+            --light-green: #d1fae5;
+            --white: #ffffff;
+            --light-gray: #f9fafb;
+            --text-gray: #4b5563;
+            --text-dark: #1f2937;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 60px 0;
+            width: 100%;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-dark);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+        }
+
+        .highlight {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--green);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            text-align: center;
+            width: auto;
+        }
+
+        .btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--green);
+        }
+
+        /* Mobile-first navigation */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--light-gray);
+            padding-top: 100px;
+            text-align: center;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--text-gray);
+        }
+
+        /* What We Do */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            color: var(--green);
+            margin-bottom: 20px;
+        }
+
+        /* Products Section */
+        .products {
+            background: var(--light-gray);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 180px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .logo-placeholder {
+            width: 100%;
+            max-width: 180px;
+            height: 100px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            margin: 0 auto;
+        }
+
+        .product-content {
+            padding: 25px;
+        }
+
+        .product-description {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .product-link {
+            color: var(--green);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-top: 15px;
+        }
+
+        .product-link:hover {
+            color: var(--dark-green);
+        }
+
+        .product-url {
+            color: var(--text-dark);
+            font-weight: 600;
+            background: var(--light-green);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: 40px;
+            width: 100%;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: var(--text-gray);
+            margin: 0;
+        }
+
+        /* Form Styling */
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-logo {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span {
+            color: var(--green);
+        }
+
+        .footer-text {
+            color: #d1d5db;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            color: #9ca3af;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            .hero {
+                padding-top: 80px;
+                min-height: 60vh;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                text-align: center;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 999;
+                gap: 15px;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 10px;
+                width: 100%;
+            }
+
+            .service-card,
+            .product-card {
+                padding: 20px;
+            }
+
+            .product-content {
+                padding: 20px;
+            }
+
+            .product-image {
+                height: 150px;
+            }
+
+            .logo-placeholder {
+                height: 90px;
+                max-width: 150px;
+            }
+
+            .contact-grid {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            section {
+                padding: 30px 0;
+            }
+
+            .hero {
+                padding-top: 70px;
+                min-height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .service-card,
+            .product-card {
+                padding: 15px;
+            }
+
+            .product-content {
+                padding: 15px;
+            }
+
+            .product-image {
+                height: 130px;
+            }
+
+            .logo-placeholder {
+                height: 80px;
+                max-width: 130px;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .contact-icon {
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .service-icon {
+                font-size: 1.8rem;
+            }
+
+            .product-image {
+                height: 110px;
+            }
+
+            .logo-placeholder {
+                height: 70px;
+                max-width: 110px;
+            }
+        }
+
+        /* Extra small devices fix */
+        @media (max-width: 280px) {
+            .container {
+                padding: 0 8px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .product-image {
+                height: 100px;
+            }
+
+            .logo-placeholder {
+                height: 60px;
+                max-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">SOLV<span>IFY</span></a>
+                
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#what-we-do">What We Do</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Building Digital Solutions That Work</h1>
+            <p>We create <span class="highlight">scalable SaaS platforms</span> and <span class="highlight">web applications</span> that solve real problems for businesses and individuals.</p>
+            <a href="#products" class="btn">See Our Products</a>
+        </div>
+    </section>
+
+    <!-- What We Do -->
+    <section id="what-we-do">
+        <div class="container">
+            <h2>What We Do</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Custom websites and web applications built with <span class="highlight">modern technologies</span> and best practices.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>SaaS Platforms</h3>
+                    <p><span class="highlight">Scalable Software-as-a-Service</span> solutions that grow with your business needs.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Digital Products</h3>
+                    <p><span class="highlight">User-friendly digital solutions</span> designed to simplify complex business processes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2>Our Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <!-- Replace this placeholder with your Abizerwa logo -->
+                        <div class="logo-placeholder">
+                            <span style="font-size: 0.9rem; color: var(--text-gray);">
+                                Abizerwa Logo
+                            </span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3>Abizerwa</h3>
+                        <p class="product-description">
+                            A digital platform for managing <span class="highlight">debts</span> and  <span class="highlight">credits</span>. 
+                            Designed to simplify <span class="highlight">financial tracking</span>and 
+                            <span class="highlight">improve cash flow management</span> for businesses and individuals in Rwanda.
+                        </p>
+                       <p><strong>Use:</strong>
+                        <a href="https://abizerwa.rw" target="_blank" class="product-link">
+                            <span class="product-url">abizerwa.rw</span> 
+                        </a></p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <!-- Replace this placeholder with your BookMe logo -->
+                        <div class="logo-placeholder">
+                            <span style="font-size: 0.9rem; color: var(--text-gray);">
+                                BookMe Logo
+                            </span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3>BookMe</h3>
+                        <p class="product-description">
+                            An <span class="highlight">intuitive online booking system</span> for appointment management. 
+                            Helps service providers <span class="highlight">manage schedules efficiently</span>, 
+                            <span class="highlight">accept bookings online</span>, and 
+                            <span class="highlight">streamline customer interactions</span>.
+                        </p>
+                        <p><strong>Use:</strong>
+                        <a href="https://bookme.rw" target="_blank" class="product-link">
+                            <span class="product-url">bookme.rw</span> 
+                        </a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>Have a project in mind? <span class="highlight">Reach out to us for a consultation</span>.</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>solvifysoft@gmail.com</p>
+                            <p><strong>CEO: </strong>imanirumvaolivier20@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+250 783775019</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>Huye, Rwanda</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Send a Message</h3>
+                    <form id="contactForm" class="contact-form">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">SOLV<span>IFY</span></div>
+            <p class="footer-text">Building <span style="color: var(--green);">innovative digital solutions</span> that empower businesses and drive growth in the digital economy.</p>
+            <div class="copyright">
+                &copy; <span id="currentYear"></span> SOLVIFY COMPANY. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+        });
+        
+        // Close menu when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Simple form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    </script>
+</body>
+</html>
