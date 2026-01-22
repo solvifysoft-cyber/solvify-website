@@ -16,7 +16,7 @@ jobs:
       - name: Copy files to VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host:81.17.102.70
+          host: 81.17.102.70
           username: olivier
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
